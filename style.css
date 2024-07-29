@@ -1,75 +1,79 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .wrapper{
-  width: 100%;
-  height: 100%;
-  max-width: 450px;
-  position: relative;
-  display: block;
-  margin: auto;
-  
+  width:100%;
+  height:100vh;
+  max-width:700px;
+  margin:auto;
+  border:1px solid #000;
+  position:relative;
 }
 
 .search{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  z-index: 2;
-  margin: 1rem 0;
-  border: 1px solid #fff; background: #fff;
+  position:absolute;
+  width:80%;
+  background:#fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #ccc;
+  top:100px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:14px 16px;
+  display:flex;
+  justify-content: space-between;
+  /* gap: 4px; */
+  z-index: 999;
 }
 
+.search input{
+  width:80%;
+  padding: 10px 14px;
+  outline: 0;
+  border: 1px solid #bbb;
+}
+
+.search input::placeholder{
+  color: #bbb;
+}
+
+.search button{
+  width:20%;
+}
 
 #map{
-  width: 100%;  
-  position: relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;
 }
 
 #map img{
-  width: 100%;
+  width:100%;
 }
 
-
-.detail-box{
-  width: 80%;
-  display: block;
-  position: absolute;
-  bottom: 80px;
-  margin-left: 225px;
-  transform: translate(-50%);
-  }
-
-.detail-box .detaile-wrap{
-  width: 100%;
-  padding: 0.5rem 0;
-  border: 1px solid #000;
-  background: #fff;
+.detail_box{
+  width:100%;
+  height:400px;
+  background:#fff;
+  border:1px solid #000;
+  position:absolute;
+  z-index:999;
+  bottom:0;
+  display: none;
 }
 
-
-.detail-box .detaile-wrap div{
-  width: 100%;
-  padding: 0.3rem 0;
-  
+.guide{
+  position:absolute;
+  width:50%;
+  height:30px;
+  background:#fff;
+  left:50%;
+  top:-30px;
+  transform:translateX(-50%);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border:1px solid #000;
+  display:flex;
+  justify-content: center;
 }
 
-.detail-box .detaile-wrap .title{
-  width: 100%;
-  font-size: 20px;
-  text-align: center;
-}
-
-.detail-box .detaile-wrap .info{
-  display: flex;
-}
-
-.detail-box .detaile-wrap .link{
-  width: 100%;
-  font-size: 16px;
-  text-align: center;
+.guide i{
+  font-size:25px;
 }

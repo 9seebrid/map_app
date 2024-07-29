@@ -4,8 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Map App</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ypw6e94wus"></script> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-    <h2>deploy</h2>
+    <div class="wrapper">
+      <div class="search">
+        <input type="text" placeholder="지역 또는 도서관명 검색..." />
+        <button><i class="ri-search-line"></i></button>
+      </div>
+      <div id="map">
+        <img src="map.png" alt="" />
+      </div>
+
+      <div class="detail_box">
+        <div class="guide">
+          <i class="ri-arrow-drop-up-line"></i>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+      // var mapOptions = {
+      //   center: new naver.maps.LatLng(37.48095985596819, 126.87938946073125),
+      //   zoom: 17,
+      // };
+      navigator.geolocation.getCurrentPosition((position) => {
+        // console.log(position);
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        console.log(lat, lng);
+
+        startLenderMap(lat, lng);
+      });
+
+      function startLenderMap(lat, lng) {
+        var map = new naver.maps.Map('map', {
+          center: new naver.maps.LatLng(lat, lng),
+          zoom: 17, // 숫자가 높을수록 가까이 보임
+        });
+
+        var marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(lat, lng),
+          map: map,
+        });
+      }
+    </script>
   </body>
 </html>
