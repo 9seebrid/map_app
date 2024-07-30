@@ -21,13 +21,45 @@ detailGuide.addEventListener('click', function () {
   }
 });
 
-// console.log(data);
+//데이터 기준일자 23년 10월보다 크고 위도 경도가 있는 데이터만 추출
 const currentData = data.records.filter(
   (item) => item.데이터기준일자.split('-')[0] >= '2023' && item.데이터기준일자.split('-')[1] >= '10' && item.위도 !== ''
 );
-// console.log(currentData); //데이터 기준일자 23년 10월보다 크고 위도 경도가 있는 데이터만 추출
 
-//네이버 맵 적용
+// 검색 버튼 기능
+const searchBtn = document.querySelector('.search button');
+// 검색 버튼
+const searchInput = document.querySelector('.search input'); // 검색 입력창
+const mapElmt = document.querySelector('#map');
+const loading = document.querySelector('.loading'); // 로딩 이미지
+
+// 검색 버튼 클릭 시 실행 함수
+searchBtn.addEventListener('click', function () {
+  const searchValue = searchInput.value; // 입력값 저장
+
+  if (searchInput.value === '') {
+    alert('검색어를 입력해주세요');
+    searchInput.focus(); // 커서 입력창에 포커스
+    return;
+  } // 검색어 없이 클릭할 경우 알림
+
+  const searchResult = currentData.filter(
+    (item) => item.도서관명.includes(searchValue) || item.시군구명.includes(searchValue)
+  ); // 검색어와 일치하는 데이터만 추출
+
+  if (searchResult.length === 0) {
+    alert('검색 결과가 없습니다.');
+    searchInput.value = ''; // 검색어 초기화
+    searchInput.focus(); // 커서 입력창에 포커스
+    return;
+  } else {
+    mapElmt.innerHTML = ''; // 검색시 기존 지도 삭제
+    startLenderMap(searchResult[0].위도, searchResult[0].경도);
+    searchInput.value = ''; // 검색어 초기화
+  }
+});
+
+//네이버 맵 적용 : 현재 위치 검색
 
 navigator.geolocation.getCurrentPosition((position) => {
   // console.log(position);
@@ -87,6 +119,10 @@ function startLenderMap(lat, lng) {
 
         `,
       });
+
+      setTimeout(() => {
+        loading.style.display = 'none'; // 로딩 이미지 숨김
+      }, 800); // 느릴 경우 더 오래 걸릴 수 있기 때문에 안하는 것 추천
 
       naver.maps.Event.addListener(marker, 'click', function () {
         // 마커 클릭시 정보창이 열리고 닫힘
